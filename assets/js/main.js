@@ -45,7 +45,7 @@ $form.addEventListener('submit', function(e){
         div.setAttribute('class', e.name);
         div.innerHTML = `
         <span class="behind" style="animation : deal 1s linear; animation-delay: 0.${counter}s;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" alt="dito">
+        <img src="../assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
         </span>
         <span class="face">
         <img src=${e.image} alt=${e.name}>
