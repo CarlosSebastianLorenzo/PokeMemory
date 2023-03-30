@@ -1,9 +1,21 @@
+//llamamos a la pokeApi y traemos las imagenes de los pokemones de other world porque son las unicas en SVG
+for (var i = 0; i <649; i++) {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
+    .then(res => res.json())
+    .then(data => {
+        pokemones.push({
+            name : data.name,
+            image : data.sprites.other.dream_world.front_default
+        })
+    })
+}
 let $main = document.getElementsByTagName('main')[0];
 let $h1 = document.querySelector('h1');
 let $inputText = document.querySelector('input[type="number"]');
 let $form = document.getElementsByTagName('form')[0];
 //usamos un fragment para evitar el reflow
 let fragment = document.createDocumentFragment();
+let pokemones = []
 let array = [];
 let selection = [];
 let tries = 1;
@@ -14,11 +26,13 @@ $form.addEventListener('submit', function(e){
     e.preventDefault();
     n = $inputText.value;
     $inputText.value = "";
+    //desordenamos el array de pokemones
+    pokemones.sort(()=> Math.random() - 0.5);
     array = [];
     //creamos dos tarjetas iguales
     for (let i = 0; i< n; i++) {
-        array.push(i);
-        array.push(i);
+        array.push(pokemones[i]);
+        array.push(pokemones[i]);
     }
     //desordenamos las tarjetas
     array.sort(() => Math.random() - 0.5);
@@ -28,10 +42,16 @@ $form.addEventListener('submit', function(e){
         let div = document.createElement('div');
         div.setAttribute('id', counter)
         div.setAttribute('onclick', `spin(${counter})`);
-        div.setAttribute('class', e+1);
+        div.setAttribute('class', e.name);
         div.innerHTML = `
-        <span class="behind">atras</span>
-        <span class="face">${e+1}</span>`
+        <span class="behind" style="animation : deal 1s linear; animation-delay: 0.${counter}s;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/2560px-International_Pok%C3%A9mon_logo.svg.png" alt="dito">
+        </span>
+        <span class="face">
+        <img src=${e.image} alt=${e.name}>
+        </span>`
+        div.style.opacity = "0";
+        setTimeout(() => div.style.opacity = "1", counter+"00")
         fragment.appendChild(div)
         counter++;
     })
@@ -58,10 +78,10 @@ function spin(e){
         if(card1.class==card2.class){
             setTimeout(function(){
                 let cards = document.getElementsByClassName(card1.class)
-                cards[0].children[1].style.backgroundColor = "yellow"
+                cards[0].children[1].style.background = "linear-gradient(yellow,green)"
                 cards[0].children[1].style.userSelect = "none";
                 cards[0].style.cursor = "default";
-                cards[1].children[1].style.backgroundColor = "yellow"
+                cards[1].children[1].style.background = "linear-gradient(yellow,green)"
                 cards[1].children[1].style.userSelect = "none";
                 cards[1].style.cursor = "default";
             },1000);
@@ -72,7 +92,7 @@ function spin(e){
                         $main.innerHTML += `<section class="finish">
                             <h1>Congratulations!</h1>
                             <p>You finished in only ${tries} tries</p>
-                            <button id="close">Play Again</button>
+                            <button><p id="close">Play Again</p></button>
                             </section>`;
                     }
                     else{
@@ -80,7 +100,7 @@ function spin(e){
                         <h1>WOW! Are you a Machine?!</h1>
                         <p>You finished in only ${tries} try</p>
                         <p>Congratulations!</p>
-                        <button id="close">Play Again</button>
+                        <button><p id="close">Play Again</p></button>
                         </section>`;
                     }
                     finish = 0;
@@ -94,6 +114,12 @@ function spin(e){
             tries ++;
             $h1.innerHTML = `Tries: ${tries}`;
             setTimeout(function(){
+                document.getElementById(card1.id).style.animation = "shake alternate .65s linear" 
+                document.getElementById(card2.id).style.animation = "shake alternate .65s linear"
+            },500); 
+            setTimeout(function(){
+                document.getElementById(card1.id).style.animation = "" 
+                document.getElementById(card2.id).style.animation = "" 
                 document.getElementById(card1.id).style.transform = "rotateY(0deg)";
                 document.getElementById(card2.id).style.transform = "rotateY(0deg)";
             },1000);

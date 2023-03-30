@@ -3,8 +3,12 @@
     margin:0;
     box-sizing: border-box;
 }
+:root{
+    --primary: red;
+}
 body{
     height: 100vh;
+    background: radial-gradient(#ccc, #aaa, #555);
 }
 header{
     height: 10vh;
@@ -19,13 +23,39 @@ input{
     border-radius: 5px;
 }
 button{
-    background-color: yellow;
+    border-top: .04em solid #aaa;
+    border-left: .04em solid #aaa;
+    border-right: .0e8m solid #555;
+    border-bottom: .08em solid #555;
+    background: #ccc;
     padding: .1em;
     border-radius: 5px;
     font-size: 3em;
     cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .5);
 }
-
+button>p{
+    background-color: #565656;
+    color: transparent;
+    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+}
+button:hover>p{
+    background: #707070;
+    color: transparent;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+}
+button:hover{
+    border-right: .04em solid #555;
+    border-bottom: .04em solid #555;
+    border-top: .04em solid #aaa;
+    border-left: .04em solid #aaa;
+    background: linear-gradient(0deg, #ccc, #aaa);
+}
 main{
     min-height: 90vh;
     display: flex;
@@ -38,8 +68,8 @@ a{
     text-decoration: none;
 }
 div{
-    height: 15em;
-    width: 10em;
+    height: 16em;
+    width: 16em;
     position: relative;
     transform-style: preserve-3d;
     transition: 1s;
@@ -47,8 +77,8 @@ div{
 }
 .face{
     position: absolute;
-    background-color: red;
-    border: 1em solid green;
+    background: linear-gradient(red,green);
+    border: 1em solid #fff;
     height: 100%;
     width: 100%;
     inset: 0;
@@ -58,11 +88,20 @@ div{
     transform: rotateY(180deg);
     backface-visibility: hidden;
     border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, .5);
+}
+.face>img, .behind>img{
+    max-height: 100%;
+    max-width: 100%;
+    filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5))
 }
 .behind{
     position: absolute;
-    background-color: blue;
-    border: 1em solid green;
+    background: conic-gradient(#ccc 25%, #fff 0 50%, #999 0 75%, #fff 0), url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1200px-Pok%C3%A9_Ball_icon.svg.png");
+    background-size: 7em 7em;
+    background-repeat: space;
+    background-blend-mode:multiply;
+    border: 1em solid #111;
     height: 100%;
     width: 100%;
     inset: 0;
@@ -70,6 +109,7 @@ div{
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
 .finish{
     position: absolute;
@@ -82,4 +122,29 @@ div{
     gap: 1em;
     align-items: center;
     justify-content: center;
+}
+.finish:has(h1, p){
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+}
+.shake{
+    animation: shake alternate .65s ease-out infinite; 
+}
+@keyframes shake {
+    from{ translate: 0 0;}
+    10%{ translate: 0 0;}
+    20%{ translate: 0 0;}
+    30%{ translate: 1em 0;}
+    40%{ translate: -1em 0;}
+    50%{ translate: 1em 0;}
+    60%{ translate: -1em 0;}
+    70%{ translate: 1em 0;}
+    80%{ translate: -1em 0;}
+    90%{ translate: 0 0;}
+    to {translate: 0 0;}
+}
+@keyframes deal {
+    from{
+        transform:perspective(200px) rotateY(45deg) rotateX(15deg)
+    }
 }
