@@ -115,6 +115,9 @@ div{
     max-width: 100%;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5))
 }
+.behind>img{
+    scale: 1;
+}
 .behind{
     position: absolute;
     background: conic-gradient(#ccc 25%, #fff 0 50%, #999 0 75%, #fff 0), url("https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Pok%C3%A9_Ball_icon.svg/1200px-Pok%C3%A9_Ball_icon.svg.png");

@@ -45,7 +45,7 @@ $form.addEventListener('submit', function(e){
         div.setAttribute('class', e.name);
         div.innerHTML = `
         <span class="behind deal" style=" animation-delay: 0.${counter}s;">
-        <img src="../assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
+        <img src="./assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
         </span>
         <span class="face">
         <img src=${e.image} alt=${e.name}>
