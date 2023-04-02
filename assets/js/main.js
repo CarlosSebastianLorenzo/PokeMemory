@@ -44,7 +44,7 @@ $form.addEventListener('submit', function(e){
         div.setAttribute('onclick', `spin(${counter})`);
         div.setAttribute('class', e.name);
         div.innerHTML = `
-        <span class="behind" style="animation : deal 1s linear; animation-delay: 0.${counter}s;">
+        <span class="behind deal" style=" animation-delay: 0.${counter}s;">
         <img src="../assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
         </span>
         <span class="face">
@@ -88,6 +88,7 @@ function spin(e){
             finish ++;
             setTimeout(function(){
                 if (finish == n){
+                    document.querySelectorAll("span").forEach(e => e.classList.remove('deal'))
                     if(tries > 1){
                         $main.innerHTML += `<section class="finish">
                             <h1>Congratulations!</h1>
@@ -126,13 +127,10 @@ function spin(e){
         }
         //vaciamos la seleccion
         selection = [];
-        console.log(finish)
-        console.log(n)
     }
 }
 
 $main.addEventListener("click", function(e){
-    console.log(e.target)
     if (e.target == document.getElementById('close')){
         close();
     }
