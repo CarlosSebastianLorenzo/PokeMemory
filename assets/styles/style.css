@@ -4,11 +4,13 @@
     box-sizing: border-box;
 }
 :root{
-    --primary: red;
+    --primary: #ffcc01;
+    --secondary: #2575bb;
+    --tertiary: #17285e;
 }
 body{
     min-height: 100vh;
-    background: linear-gradient(45deg,blue, darkblue, lightblue, darkblue, blue);
+    background: linear-gradient(45deg,blue, darkblue, #2575bb, darkblue, blue);
     animation: bg ease-in-out infinite 20s alternate;
     background-size: 400% 400%;
 }
@@ -24,19 +26,35 @@ header{
     flex-wrap: wrap;
     gap: 1em;
 }
-input{
+header>svg{
+    position: fixed;
+    top: 1em;
+    right: 1em;
+    height: 3em;
+    width: 3em;
+    fill: var(--primary);
+    cursor: pointer;
+}
+.hide{
+    opacity: 0;
+    z-index: -1;
+}
+header>form>input{
     font-size: 3em;
-    width: 2em;
+    width: 1.5em;
     padding: .1em;
+    margin-right: .1em;
     border-radius: 5px;
+    background: linear-gradient(0deg, var(--primary),white);
+    color: var(--tertiary);
 }
 img{
     max-height: 100%;
 }
 h1{
-    background-color: yellow;
+    background-color: var(--primary);
     color: transparent;
-    text-shadow: 1px 1px 3px rgba(255,255,255,0.5);
+    /* text-shadow: 1px 1px 3px var(--secondary); */
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
@@ -45,9 +63,10 @@ h1{
 button{
     border-top: .04em solid #aaa;
     border-left: .04em solid #aaa;
-    border-right: .0e8m solid #555;
+    border-right: .08em solid #555;
     border-bottom: .08em solid #555;
-    background: #ccc;
+    /* background: #ccc; */
+    background: var(--secondary);
     padding: .1em;
     border-radius: 5px;
     font-size: 3em;
@@ -55,15 +74,18 @@ button{
     box-shadow: 0 8px 16px rgba(0, 0, 0, .5);
 }
 button>p{
-    background-color: #565656;
+    /* background-color: #565656; */
+    background-color: var(--tertiary);
     color: transparent;
-    text-shadow: 2px 2px 3px rgba(255,255,255,0.5);
+    /* text-shadow: 2px 2px 3px rgba(255,255,255,0.5); */
+    text-shadow: 2px 2px 3px var(--secondary);
     -webkit-background-clip: text;
     -moz-background-clip: text;
     background-clip: text;
 }
 button:hover>p{
-    background: #707070;
+    /* background: #707070; */
+    background: var(--tertiary);
     color: transparent;
     -webkit-background-clip: text;
     -moz-background-clip: text;
@@ -74,10 +96,12 @@ button:hover{
     border-bottom: .04em solid #555;
     border-top: .04em solid #aaa;
     border-left: .04em solid #aaa;
-    background: linear-gradient(0deg, #ccc, #aaa);
+    padding: .12em;
+    /* background: linear-gradient(0deg, #ccc, #aaa); */
+    background: linear-gradient(to bottom, var(--tertiary), var(--secondary))
 }
 main{
-    min-height: 90vh;
+    min-height: 78vh;
     display: flex;
     justify-content: center;
     gap: 1rem;
@@ -87,7 +111,7 @@ main{
 a{
     text-decoration: none;
 }
-div{
+main>div{
     height: 16em;
     width: 16em;
     position: relative;
@@ -103,7 +127,8 @@ div{
     width: 100%;
     inset: 0;
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    flex-direction: column;
     align-items: center;
     transform: rotateY(180deg);
     backface-visibility: hidden;
@@ -111,12 +136,13 @@ div{
     box-shadow: 0 8px 16px rgba(0, 0, 0, .5);
 }
 .face>img, .behind>img{
-    max-height: 100%;
-    max-width: 100%;
+    max-height: 90%;
+    max-width: 90%;
     filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5))
 }
-.behind>img{
-    scale: 1;
+.face>h3{
+    color: yellow;
+    text-shadow: blue 2px 2px;
 }
 .behind{
     position: absolute;
@@ -134,6 +160,9 @@ div{
     border-radius: 5px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
+.behind>img{
+    scale: 1;
+}
 .deal{
     animation : deal 1s linear;
 }
@@ -142,17 +171,29 @@ div{
     top: 50%;
     left: 50%;
     translate: -50% -50%;
-    scale: 3;
+    scale: 2;
     display: flex;
     flex-direction: column;
     gap: 1em;
     align-items: center;
     justify-content: center;
+    background-color: rgba(23, 18, 80, 0.5);
+    border-radius: 5px;
+    padding: .5em;
+    text-align: center;
 }
-.finish:has(h1, p){
-    color: white;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 1);
+.finish>p{
+    color: var(--primary);
+    text-shadow: 1px 1px var(--secondary);
 }
+.finish>h1{
+    margin: 0;
+    font-size: 2.5em;
+    color: var(--primary);
+    text-shadow: -2px 2px var(--tertiary);
+    -webkit-text-stroke: 2px var(--secondary);
+}
+
 .shake{
     animation: shake alternate .65s ease-out infinite; 
 }
@@ -187,5 +228,78 @@ div{
     }
     .finish{
         scale: 1;
+    }
+}
+/* FOOTER */
+footer{
+    height: 12vh;
+    text-align: center;
+}
+.socialMedia{
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    padding: 1em;
+    align-items: center;
+}
+.line{
+    width: 30vw;
+    background-color: lightgray;
+    border-radius: 20px;
+    height: 2px;
+}
+.socialMedia>a{
+    text-decoration: none;
+}
+.socialMedia>a{
+    translate: 0 20%;
+}
+.socialMedia>a>svg{
+    position: relative;
+    fill: lightgray;
+    stroke-width: 12;
+    height: 2em;
+    cursor: pointer;
+}
+.socialMedia>a>p{
+    color: gray;
+    opacity: 0;
+}
+.socialMedia>a>svg:hover{
+    animation: dasharray 3s linear infinite alternate;
+    stroke: white;
+    scale: 1.1;
+    transition: 1s;
+}
+@keyframes dasharray {
+    from{ 
+        stroke-dasharray: 300;
+    }
+    to{
+        stroke-dasharray: 650;
+    }
+}
+.socialMedia>a>svg:hover~p{
+    opacity: 1;
+    transition: 1s;
+}
+.socialMedia>svg:not(hover),footer>svg:not(hover)~p{
+    transition: 1s;
+}
+footer>p{
+    padding: .2em;
+    color: dimgray;
+}
+@media (max-width: 600px) {
+    main{
+        padding-top: 8vh;
+        min-height: 72vh;
+    }
+    .socialMedia{
+        gap: 0;
+        padding-bottom: .2em;
+    }
+    .socialMedia>a>svg{
+        height: 1.5em;
     }
 }

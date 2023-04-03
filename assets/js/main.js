@@ -1,5 +1,5 @@
 //llamamos a la pokeApi y traemos las imagenes de los pokemones de other world porque son las unicas en SVG
-for (var i = 0; i <649; i++) {
+for (var i = 1; i <649; i++) {
     fetch(`https://pokeapi.co/api/v2/pokemon/${i}`)
     .then(res => res.json())
     .then(data => {
@@ -9,6 +9,16 @@ for (var i = 0; i <649; i++) {
         })
     })
 }
+let $music = document.getElementById('ambientMusic');
+$music.muted = true;
+let $muted = document.querySelectorAll('#sound, #muted');
+$muted.forEach(function(e){
+    e.addEventListener('click', function(){
+        $music.play();
+        $muted.forEach(e => e.classList.toggle('hide'));
+        $music.muted==true? $music.muted=false : $music.muted=true;
+    })
+})
 let $main = document.getElementsByTagName('main')[0];
 let $h1 = document.querySelector('h1');
 let $inputText = document.querySelector('input[type="number"]');
@@ -25,7 +35,7 @@ let n = 0;
 $form.addEventListener('submit', function(e){
     e.preventDefault();
     n = $inputText.value;
-    $inputText.value = "";
+    $inputText.value++;
     //desordenamos el array de pokemones
     pokemones.sort(()=> Math.random() - 0.5);
     array = [];
@@ -42,14 +52,16 @@ $form.addEventListener('submit', function(e){
         let div = document.createElement('div');
         div.setAttribute('id', counter)
         div.setAttribute('onclick', `spin(${counter})`);
-        div.setAttribute('class', e.name);
+        div.classList.add(e.name);
+        div.classList.add('card');
         div.innerHTML = `
-        <span class="behind deal" style=" animation-delay: 0.${counter}s;">
-        <img src="./assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
-        </span>
-        <span class="face">
-        <img src=${e.image} alt=${e.name}>
-        </span>`
+            <span class="behind deal" style=" animation-delay: 0.${counter}s;">
+                <img src="./assets/img/Pokemon-Logo-PNG-Pic.png" alt="Pokemon">
+            </span>
+            <span class="face">
+                <img src=${e.image} alt=${e.name}>
+                <h3>${e.name}</h3>
+            </span>`
         div.style.opacity = "0";
         setTimeout(() => div.style.opacity = "1", counter+"00")
         fragment.appendChild(div)
@@ -86,8 +98,8 @@ function spin(e){
                 cards[1].style.cursor = "default";
             },1000);
             finish ++;
-            setTimeout(function(){
-                if (finish == n){
+            if (finish == n){
+                    setTimeout(function(){
                     document.querySelectorAll("span").forEach(e => e.classList.remove('deal'))
                     if(tries > 1){
                         $main.innerHTML += `<section class="finish">
@@ -107,8 +119,8 @@ function spin(e){
                     finish = 0;
                     tries = 1;
                     $h1.innerHTML = `Tries:`;
-                }
-            },1500);
+                },1000);
+            }
         }
         //si son distintas las volvemos a girar
         else{
